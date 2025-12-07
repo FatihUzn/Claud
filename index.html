@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-key="title">WalkAbouTravel — Tourism & Travel</title>
+    <link rel="icon" type="image/png" href="assets/images/walkabou_travel_logo.webp">
+
+    <link rel="preload" as="image" href="assets/images/walkabou_travel_logo.webp">
+    <link rel="preload" as="fetch" href="data/languages/en.json" crossorigin>
+    <link rel="preload" as="fetch" href="data/languages/ar.json" crossorigin>
+    <link rel="preload" as="fetch" href="data/languages/zh.json" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" href="styles/main.css">
+
+    <style>
+        /* Geçici Text Animasyonu Stili - Diğerleri styles/main.css içinde */
+        #changing-text {
+            font-size: 1.25rem; 
+            margin: 10px 0 30px 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        /* Kart linkleri için stil düzeltmesi */
+        a.category-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+        }
+    </style>
+
+</head>
+<body>
+
+<header id="main-header">
+  <div class="header-top-row">
+    <div class="top-bar-left">
+      <a href="tel:+902125551923" class="btn btn-top-info"><i class="fas fa-phone"></i> +90 (212) 555 1923</a>
+      <a href="mailto:info@walkaboutravel.com" class="btn btn-top-info"><i class="fas fa-envelope"></i> info@walkaboutravel.com</a>
+      </div>
+    <div class="top-bar-right">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Mimar+Sinan+Cd.+No:+42/A,+Golden+Palace+Tower+Kat:+12,+İstanbul/Türkiye" target="_blank" rel="noopener noreferrer" class="btn btn-top-info"><i class="fas fa-map-marker-alt"></i> Yol Tarifi Al</a>
+    </div>
+  </div>
+
+  <div class="header-bottom-row">
+    <div class="brand">
+      <img src="assets/images/walkabou_travel_logo.webp" alt="WalkAbouTravel Logo"> 
+      <div class="brand-text-container">
+          <span class="brand-title" data-key="brand_walkabou_travel">WalkAbouTravel</span>
+          <span class="brand-tagline" data-key="brand_Tourism">Tourism & Travel</span>
+      </div>
+    </div>
+   
+    <div class="header-controls">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menüyü aç/kapat">
+          <i class="fas fa-bars"></i>
+      </button>
+    
+      <nav class="navbar" id="navbar">
+        <a data-page="hero" class="nav-link" data-key="nav_home">Anasayfa</a>
+        <a data-page="page-about" class="nav-link" data-key="nav_about">Kurumsal</a>
+        <a data-page="page-services" class="nav-link" data-key="nav_services">Hizmetler</a>
+        <a data-page="page-contact" class="nav-link" data-key="nav_contact">İletişim</a>
+        
+        <div class="language-selector mobile-only" style="display: none;">
+            <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')">TR</button>
+            <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">ZH</button>
+            <button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">AR</button> 
+        </div>
+      </nav>
+    
+      <div class="language-selector desktop-only" style="margin-left: 20px;">
+          <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')">TR</button>
+          <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">ZH</button>
+          <button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">AR</button> 
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO BÖLÜMÜ -->
+<section class="hero-video page-section active" id="hero">
+  <video autoplay muted loop playsinline class="hero-video-bg">
+    <source src="assets/videos/hero_background.mp4" type="video/mp4">
+    Tarayıcınız video etiketini desteklemiyor.
+  </video>
+
+  <div class="hero-content-overlay">
+    
+    <p class="hero-since" data-key="hero_since">1997'DEN BERİ</p>
+    <h1 data-key="hero_title">WalkAbouTravel</h1>
+    <h2 id="changing-text" data-key="hero_subtitle"></h2>
+    
+    <!-- GÜNCELLENDİ: Butonlar Yeni Sisteme Bağlandı -->
+    <div class="hero-links-container action-buttons" style="margin-bottom: 50px;">
+      <!-- Yurt İçi Butonu -->
+      <a href="#page-tours" data-category="domestic" data-key="drop_hotel" class="btn btn-hero-link">Turizm De Biz</a>
+      <!-- Blog Butonu -->
+      <a href="#homepage-blog" class="btn btn-hero-link">Blog</a>
+      <!-- Yurt Dışı Butonu -->
+      <a href="#page-tours" data-category="international" data-key="drop_rental" class="btn btn-hero-link">Turizm</a>
+    </div>
+
+  </div> 
+</section>
+
+<!-- KATEGORİ SEÇİMİ -->
+<section id="quick-access-links">
+    
+    <div class="section-title-wrapper">
+        <h2 class="section-main-title">Rotalarınızı Keşfedin</h2>
+        <div class="gold-divider"></div>
+    </div>
+
+    <div class="quick-access-grid">
+        
+        <!-- GÜNCELLENDİ: Div -> A etiketi ve yeni linkler -->
+        <a href="#page-tours" data-category="domestic" class="category-card">
+            <div class="card-image-wrapper">
+                <img src="assets/images/kapadokya-balon-1.webp" 
+                     onerror="this.src='assets/fallback.webp'; this.onerror=null;" 
+                     alt="Kültür Turları">
+            </div>
+            <div class="category-card-content">
+                <h3>Kültür Turları</h3>
+                <p>Mardin, Kapadokya, Antalya ve daha fazlası.</p>
+                <span class="category-btn">İncele →</span>
+            </div>
+        </a>
+
+        <!-- Blog Linki -->
+        <a href="#homepage-blog" class="category-card">
+            <div class="card-image-wrapper">
+                <img src="assets/images/blog-1-before.webp" 
+                     onerror="this.src='assets/fallback.webp'; this.onerror=null;" 
+                     alt="Blog">
+            </div>
+            <div class="category-card-content">
+                <h3>Blog</h3>
+                <p>Tarihi yapılar, yalılar ve koruma projeleri.</p>
+                <span class="category-btn">İncele →</span>
+            </div>
+        </a>
+
+        <!-- Yurt Dışı Linki -->
+        <a href="#page-tours" data-category="international" class="category-card">
+            <div class="card-image-wrapper">
+                <img src="assets/images/spain-1.webp" 
+                     onerror="this.src='assets/fallback.webp'; this.onerror=null;" 
+                     alt="Yurt Dışı">
+            </div>
+            <div class="category-card-content">
+                <h3>Yurt Dışı & Transfer</h3>
+                <p>Avrupa turları, uçak bileti ve transfer hizmetleri.</p>
+                <span class="category-btn">İncele →</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- Blog Bölümü -->
+<section id="homepage-blog" class="page-section active homepage-blog-section">
+    <div class="new-layout-container">
+        
+        <div class="section-title-wrapper" style="margin-bottom: 50px;">
+            <h2 class="blog-section-title">
+                Seyahat Günlüğü
+            </h2>
+            <p class="blog-section-desc">
+                Dünyanın en büyüleyici rotaları, vizesiz seyahat ipuçları ve konaklama rehberleri.
+            </p>
+        </div>
+
+        <div class="featured-blog featured-blog-wrapper">
+            <img src="assets/images/for_hero.webp" 
+                 alt="Mardin" 
+                 class="featured-img" 
+                 onerror="this.src='assets/fallback.webp'; this.onerror=null;">
+            <div class="featured-content">
+                <span class="blog-category">EDİTÖRÜN SEÇİMİ</span>
+                <h3>Mardin'in Büyülü Atmosferi: Taş Konaklar</h3>
+                <p>Mezopotamya'nın kalbinde, tarihin ve kültürün iç içe geçtiği Mardin sokaklarında, taş işçiliğinin en güzel örneklerini keşfedin.</p>
+                <a href="#" class="btn">Devamını Oku</a>
+            </div>
+        </div>
+
+        <div id="blog-grid-display" class="blog-grid">
+            <!-- JS ile doldurulacak -->
+        </div>
+
+    </div>
+</section>
+
+<!-- NOT: Eski 'page-otel' ve 'page-satilik_kiralik' bölümleri SİLİNDİ. 
+     Artık bu sayfalar pages/tours.html şablonu üzerinden dinamik oluşturuluyor. -->
+
+<main id="page-container">
+    <!-- Dinamik sayfalar (pages/tours.html, pages/about.html vb.) buraya yüklenecek -->
+</main>
+
+<footer class="site-footer">
+    <div class="footer-grid">
+
+        <div class="footer-column">
+            <h3 data-key="footer_col_1_title">Menü Link</h3>
+            <ul class="footer-links">
+                <li><a href="#hero" data-page="hero" class="nav-link" data-key="nav_home">Anasayfa</a></li>
+                <li><a href="#page-about" data-page="page-about" class="nav-link" data-key="nav_about">Kurumsal</a></li>
+                <li><a href="#page-services" data-page="page-services" class="nav-link" data-key="nav_services">Hizmetler</a></li>
+                <li><a href="#page-contact" data-page="page-contact" class="nav-link" data-key="nav_contact">İletişim</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3 data-key="footer_col_2_title">Hizmetlerimiz</h3>
+            <ul class="footer-links">
+                <li><a href="#page-services" data-page="page-services" data-key="service_h3_1">Mimari Tasarım</a></li>
+                <li><a href="#page-services" data-page="page-services" data-key="service_h3_2">İç Mekan Tasarımı</a></li>
+                <li><a href="#page-services" data-page="page-services" data-key="service_h3_3">Restorasyon ve Koruma</a></li>
+                <li><a href="#page-services" data-page="page-services" data-key="service_h3_4">Proje Yönetimi</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column logo-column">
+            <div class="footer-logo-container">
+                <img src="assets/images/walkabou_travel_logo.webp" alt="WalkAbouTravel Logo">
+                <div class="footer-text-container">
+                    <span class="footer-title" data-key="brand_walkabou_travel">WalkAbouTravel</span>
+                    <span class="brand-tagline" data-key="brand_Tourism">Tourism & Travel</span>
+                </div>
+            </div>
+            <div class="social-icons">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                <a href="mailto:info@walkaboutravel.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3 data-key="footer_col_4_title">Projeler</h3>
+            <ul class="footer-links">
+                <!-- GÜNCELLENDİ: Footer Linkleri -->
+                <li><a href="#page-tours" data-category="domestic" data-key="drop_hotel">Turizm De Biz</a></li>
+                <li><a href="#homepage-blog">Blog</a></li>
+                <li><a href="#page-tours" data-category="international" data-key="drop_rental">Bilet & Transfer</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3 data-key="footer_col_5_title">Bize Ulaşın</h3>
+            <ul class="footer-links contact-info">
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span data-key="contact_info_address_p">Mimar Sinan Cd. No: 42/A, WalkAbouTravel Tower Kat: 12, İstanbul/Türkiye</span>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+902125551923" data-key="contact_info_phone_p">+90 (212) 555 1923</a>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:info@walkaboutravel.com" data-key="contact_info_email_p">info@walkaboutravel.com</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    
+    <div class="footer-bottom" data-key="footer_copyright">
+        © 2025 WalkAbouTravel Kurumsal Seyahat. Tüm hakları saklıdır. | Tasarım ve İnovasyon Stüdyosu.
+    </div>
+</footer>
+
+<!-- Lightbox Modal -->
+<div id="lightbox-modal" class="lightbox" style="display: none;">
+  <span id="close-lightbox" class="close">&times;</span>
+  <div class="lightbox-content">
+      <a id="prev-btn" class="prev">&#10094;</a>
+      <img id="lightbox-image" src="" alt="Gallery Image">
+      <a id="next-btn" class="next">&#10095;</a>
+  </div>
+  <div id="lightbox-counter"></div>
+</div>
+
+<!-- House Detail Modal -->
+<div id="house-detail" class="house-detail">
+  <button onclick="closeHouseDetail()">← Geri</button>
+  <div id="house-detail-content"></div>
+</div>
+
+<!-- Blog Detail Modal -->
+<div id="blog-modal" class="blog-modal-overlay">
+    <div class="blog-modal-content">
+        <button class="close-modal-btn" onclick="closeModal()">×</button>
+        <img id="modal-img" src="" alt="Detay Görseli" class="modal-hero-image">
+        <div class="blog-modal-body">
+            <h2 id="modal-title" class="modal-title"></h2>
+            <span id="modal-date" class="modal-date"></span>
+            <div id="modal-full-content" class="modal-text"></div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="scripts/app.js"></script>
+
+<script>
+    // Geçici metin animasyonu (Veriler artık HTML içinde kalabilir çünkü sadece basit bir animasyon)
+    const data = [
+        {
+            title: "Kurumsal Seyahat",
+            description: "İş toplantılarınız ve kongreleriniz için özel lojistik ve konaklama çözümleri sunuyoruz."
+        },
+        {
+            title: "Özel Turlar & Deneyimler",
+            description: "Size özel rehberler ve benzersiz rotalarla unutulmaz kültür ve macera turları düzenliyoruz."
+        },
+        {
+            title: "Bilet & Transfer",
+            description: "Dünya çapında en uygun uçak, otobüs ve tren biletlerini hızlıca sağlıyor, konforlu transferinizi planlıyoruz."
+        },
+        {
+            title: "Konaklama & Rezervasyon", 
+            description: "İhtiyaçlarınıza uygun en lüks ve konforlu konaklama seçeneklerini güvenle rezerve ediyoruz."
+        }
+    ];
+
+    let index = 0; 
+    const textElement = document.getElementById('changing-text'); 
+    const intervalTime = 5000; 
+
+    function changeTextWithFade() {
+        if(textElement) {
+            textElement.style.opacity = '0'; 
+        }
+
+        setTimeout(() => {
+            if(textElement) {
+                const currentData = data[index];
+                textElement.innerHTML = `<strong>${currentData.title}</strong><br>${currentData.description}`;
+                textElement.style.opacity = '1'; 
+                index = (index + 1) % data.length;
+            }
+        }, 500); 
+    }
+
+    if(textElement) {
+        changeTextWithFade();
+        setInterval(changeTextWithFade, intervalTime);
+    }
+</script>
+
+</body>
+</html>
