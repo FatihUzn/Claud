@@ -1,148 +1,195 @@
-/* Genel Kart Animasyonları */
-.card-fade-in {
-    opacity: 0;
-    transform: scale(0.9);
-    animation: cardFadeInAnimation 0.8s var(--easing) forwards;
-}
-@keyframes cardFadeInAnimation {
-  to { opacity: 1; transform: scale(1); }
-}
+/* === CARDS - TOURISM WEBSITE === */
+/* Converted from construction terminology: house-card → tour-card */
 
-/* Proje ve Blog Kartları */
-.project-card, .latest-card, .service-card, .restoration-card, .blog-card, .aesthetic-card {
-  background: var(--section-bg);
-  border-radius: 14px;
-  border: 1px solid var(--border-dark);
-  overflow: hidden;
-  transition: transform 0.4s var(--easing), box-shadow 0.4s var(--easing), border-color 0.4s var(--easing);
-  box-shadow: 0 4px 10px rgba(76, 153, 255, 0.1);
-}
-
-.project-card:hover, .latest-card:hover, .service-card:hover, .restoration-card:hover, .blog-card:hover, .aesthetic-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 40px rgba(76, 153, 255, 0.15), var(--vibrant-shadow);
-  border-color: var(--blue-light);
-}
-
-.project-card img, .latest-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-/* Ev/Tur Kartları */
-.house-card {
-  width: 350px;
-  height: auto;
-  background: var(--section-bg);
-  border: 1px solid var(--blue-dark);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-.house-card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-}
-.house-card h3 {
-  background: transparent;
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-size: 17px;
-  font-weight: 600;
-  text-align: left;
-  padding: 15px;
-  margin: 0;
-  display: block;
-}
-.house-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--vibrant-shadow-intense);
-}
-
-/* Kategori Kartları */
-.category-card {
-    background: #fff;
+.tour-card {
+    width: 350px;
+    height: auto;
+    background: var(--section-bg);
+    border: 1px solid var(--blue-dark);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    width: 100%;
-    max-width: 380px;
-    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
 }
-.category-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+
+.tour-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
+
+.tour-card h3 {
+    background: transparent;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: left;
+    padding: 15px;
+    margin: 0;
+    display: block;
+    line-height: 1.4;
+}
+
+.tour-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--vibrant-shadow-intense);
+    border-color: var(--blue-light);
+}
+
+.tour-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Blog Cards */
+.blog-card {
+    background: var(--section-bg);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--vibrant-shadow-intense);
+    border-color: var(--blue-light);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    background-color: #f0f0f0;
+}
+
+.blog-card .blog-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.blog-card .blog-date {
+    font-size: 0.8rem;
+    color: var(--blue-dark);
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 600;
+}
+
+.blog-card .blog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--text);
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+}
+
+.blog-card .blog-summary {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.blog-card .read-more {
+    margin-top: auto;
+    color: var(--blue-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Category Cards */
+.category-card {
+    background: var(--section-bg);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--vibrant-shadow-intense);
+}
+
 .category-card img {
     width: 100%;
-    height: 250px;
+    height: 220px;
     object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
 }
-.category-card:hover img { transform: scale(1.05); }
+
+.category-card:hover img {
+    transform: scale(1.08);
+}
+
 .category-card-content {
-    padding: 25px;
-    text-align: center;
-    border-top: 1px solid #eee;
-}
-
-/* Mini Kartlar */
-.mini-card {
-    background: #ffffff;
-    border: 1px solid var(--border-dark);
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-.mini-card:hover {
-    border-color: var(--blue-light);
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(76, 153, 255, 0.2);
-    z-index: 10;
-}
-.mini-card img {
-    width: 100%;
-    height: 60px;
-    object-fit: cover;
-    border-bottom: 1px solid #eee;
-}
-.mini-card span {
-    font-size: 10px;
-    color: var(--text);
-    padding: 5px 2px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    text-align: center;
-}
-
-.hero-access-col {
-    flex: 1;
-    min-width: 300px;
-    max-width: 380px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(15px);
     padding: 20px;
-    border-radius: 12px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 10px 30px rgba(76, 153, 255, 0.1);
 }
-.hero-access-col:hover {
-    transform: translateY(-5px);
+
+.category-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin: 0 0 10px 0;
+}
+
+.category-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.category-btn {
+    color: var(--blue-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Service Cards */
+.service-card {
+    background: var(--section-bg);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
     border-color: var(--blue-light);
-    background: #fff;
-    box-shadow: var(--vibrant-shadow);
+    box-shadow: var(--vibrant-shadow-medium);
+    transform: translateY(-5px);
+}
+
+.service-card i {
+    font-size: 3rem;
+    color: var(--blue-dark);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin: 15px 0;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
 }

@@ -1,46 +1,56 @@
+// === TOURS MODULE - Tourism Website ===
+// Converted from construction/real estate terminology
+
 import { PATHS, IMAGES_PER_LOAD } from '../config/constants.js';
-import { generateImages, showError, handleImageError } from '../utils/helpers.js';
+import { generateImages, showError } from '../utils/helpers.js';
 import { openGallery } from './lightbox.js';
 
 let tourData = {};
-let currentGallery = {
+let currentTourGallery = {
     images: [],
     index: 0
 };
 
-// 1. Verileri JSON'dan Çek
+// === LOAD TOUR DATA FROM JSON ===
 export async function loadTourData() {
-  try {
-    const response = await fetch(PATHS.TOURS_DATA);
-    if (!response.ok) throw new Error('Tur verileri yüklenemedi');
-    
-    const data = await response.json();
-    
-    // Resim yollarını oluştur
-    Object.entries(data).forEach(([id, tour]) => {
-      if (tour.imagePrefix && tour.imageCount) {
-        tour.images = generateImages(tour.imagePrefix + '-', tour.imageCount);
-      }
-    });
-    
-    tourData = data;
-    return data;
-  } catch (error) {
-    console.error('Tour data error:', error);
-  }
+    try {
+        const response = await fetch(PATHS.TOURS_DATA);
+        if (!response.ok) throw new Error('Tour data could not be loaded');
+        
+        const data = await response.json();
+        
+        // Generate image arrays from prefix + count
+        Object.entries(data).forEach(([id, tour]) => {
+            if (tour.imagePrefix && tour.imageCount) {
+                tour.images = generateImages(tour.imagePrefix + '-', tour.imageCount);
+            }
+        });
+        
+        tourData = data;
+        console.log('✅ Tour data loaded:', Object.keys(tourData).length, 'tours');
+        return data;
+        
+    } catch (error) {
+        console.error('❌ Tour data loading error:', error);
+        showError('Tur verileri yüklenemedi. Lütfen sayfayı yenileyin.');
+        throw error;
+    }
 }
 
-// 2. KARTLARI LİSTELEME FONKSİYONU (YENİ EKLENEN KISIM)
+// === RENDER TOUR GRID (with category filtering) ===
 export function renderTourGrid(category = 'all') {
     const grid = document.getElementById('tours-grid');
     const titleEl = document.getElementById('tours-page-title');
     const subtitleEl = document.getElementById('tours-page-subtitle');
     
-    if (!grid) return; // Eğer o sayfada değilsek dur.
+    if (!grid) {
+        console.warn('⚠️ Tour grid container not found');
+        return;
+    }
 
-    grid.innerHTML = ''; // Önce temizle
+    grid.innerHTML = ''; // Clear existing content
 
-    // Başlığı Güncelle
+    // Update page title based on category
     if (titleEl) {
         if (category === 'domestic') {
             titleEl.textContent = "Yurt İçi Kültür Turları";
@@ -54,139 +64,185 @@ export function renderTourGrid(category = 'all') {
         }
     }
 
-    // Verileri Filtrele
+    // Filter tours by category
     const tours = Object.entries(tourData).filter(([id, tour]) => {
         if (category === 'all') return true;
-        // ID'si TUR-TR ile başlayanlar Yurt İçi, TUR-D ile başlayanlar Yurt Dışı
+        // Domestic: IDs starting with TUR-TR
         if (category === 'domestic') return id.startsWith('TUR-TR');
+        // International: IDs starting with TUR-D
         if (category === 'international') return id.startsWith('TUR-D');
         return true;
     });
 
     if (tours.length === 0) {
-        grid.innerHTML = '<p style="width:100%; text-align:center;">Bu kategoride tur bulunamadı.</p>';
+        grid.innerHTML = '<p style="width:100%; text-align:center; color:#999;">Bu kategoride tur bulunamadı.</p>';
         return;
     }
 
-    // HTML Oluştur ve Ekrana Bas
+    // Generate HTML cards
     tours.forEach(([id, tour]) => {
-        // İlk resmi al, yoksa fallback kullan
         const mainImage = tour.images && tour.images.length > 0 
             ? tour.images[0] 
             : PATHS.FALLBACK_IMAGE;
 
         const cardHTML = `
-            <div class="house-card" onclick="openHouseDetail('${id}')">
-                <img loading="lazy" src="${mainImage}" alt="${tour.title}"
+            <div class="tour-card" onclick="window.openTourDetail('${id}')">
+                <img loading="lazy" 
+                     src="${mainImage}" 
+                     alt="${tour.title}"
                      onerror="this.src='${PATHS.FALLBACK_IMAGE}'; this.onerror=null;">
                 <h3>${tour.title}</h3>
             </div>
         `;
         grid.insertAdjacentHTML('beforeend', cardHTML);
     });
+
+    console.log('✅ Tour grid rendered:', tours.length, 'cards (category:', category + ')');
 }
 
-// 3. Detay Penceresini (Modal) Açma
-export function openHouseDetail(tourID) {
-  const tour = tourData[tourID];
+// === OPEN TOUR DETAIL MODAL ===
+export function openTourDetail(tourID) {
+    const tour = tourData[tourID];
 
-  if (!tour) {
-    console.error(`Tur bulunamadı: ${tourID}`);
-    alert("Bu turun detaylarına şu an ulaşılamıyor.");
-    return;
-  }
+    if (!tour) {
+        console.error(`❌ Tour not found: ${tourID}`);
+        alert("Bu turun detaylarına şu an ulaşılamıyor.");
+        return;
+    }
 
-  const detail = document.getElementById("house-detail");
-  const content = document.getElementById("house-detail-content");
-  
-  if (!detail || !content) return;
+    console.log('📖 Opening tour detail:', tour.title);
 
-  // İçerik HTML
-  content.innerHTML = `
-    <h2 class="page-title-gold">${tour.title}</h2>
+    const detail = document.getElementById("tour-detail");
+    const content = document.getElementById("tour-detail-content");
     
-    <div class="house-info">
-      <div style="margin-bottom: 10px;">
-        <i class="fas fa-map-marker-alt" style="color: #4c99ff; width: 20px;"></i> 
-        <strong>Lokasyon:</strong> <span style="color: #666;">${tour.location} (${tour.area})</span>
-      </div>
-      
-      <div style="margin-bottom: 10px;">
-        <i class="fas fa-clock" style="color: #4c99ff; width: 20px;"></i> 
-        <strong>Süre & Fiyat:</strong> <span style="color: #0056b3; font-weight: bold;">${tour.price}</span>
-      </div>
-      
-      <div style="margin-bottom: 10px;">
-        <i class="fas fa-bed" style="color: #4c99ff; width: 20px;"></i> 
-        <strong>Konaklama:</strong> <span style="color: #666;">${tour.rooms}</span>
-      </div>
+    if (!detail || !content) {
+        console.error('❌ Tour detail modal elements not found');
+        return;
+    }
 
-      <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-      
-      <p>${tour.desc}</p>
+    // Build modal content HTML
+    content.innerHTML = `
+        <h2 class="page-title-gold">${tour.title}</h2>
+        
+        <div class="tour-info">
+            <div style="margin-bottom: 10px;">
+                <i class="fas fa-map-marker-alt" style="color: #4c99ff; width: 20px;"></i> 
+                <strong>Lokasyon:</strong> 
+                <span style="color: #666;">${tour.location} (${tour.area})</span>
+            </div>
+            
+            <div style="margin-bottom: 10px;">
+                <i class="fas fa-clock" style="color: #4c99ff; width: 20px;"></i> 
+                <strong>Süre & Fiyat:</strong> 
+                <span style="color: #0056b3; font-weight: bold;">${tour.price}</span>
+            </div>
+            
+            <div style="margin-bottom: 10px;">
+                <i class="fas fa-bed" style="color: #4c99ff; width: 20px;"></i> 
+                <strong>Konaklama:</strong> 
+                <span style="color: #666;">${tour.rooms}</span>
+            </div>
 
-      <div style="margin-top: 25px; text-align: center;">
-        <a href="mailto:info@walkaboutravel.com?subject=Rezervasyon: ${tour.title}" class="btn">
-          <i class="fas fa-paper-plane"></i> Rezervasyon Yap
-        </a>
-      </div>
-    </div>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            
+            <p style="line-height: 1.7;">${tour.desc}</p>
 
-    <div class="detail-gallery" id="detail-gallery-container"></div>
-    <div id="gallery-loader" style="text-align:center; margin-top:20px;"></div>
-  `;
+            <div style="margin-top: 25px; text-align: center;">
+                <a href="mailto:info@walkaboutravel.com?subject=Rezervasyon: ${tour.title}" 
+                   class="btn">
+                    <i class="fas fa-paper-plane"></i> Rezervasyon Yap
+                </a>
+            </div>
+        </div>
 
-  // Galeri Kurulumu
-  currentGallery.images = tour.images || [];
-  currentGallery.index = 0;
-  
-  loadMorePropertyImages();
-  
-  detail.style.display = "block";
-  document.body.style.overflow = "hidden";
+        <div class="detail-gallery" id="detail-gallery-container"></div>
+        <div id="gallery-loader" style="text-align:center; margin-top:20px;"></div>
+    `;
+
+    // Setup gallery
+    currentTourGallery.images = tour.images || [];
+    currentTourGallery.index = 0;
+    
+    // Expose to global for onclick handlers
+    window.currentGalleryImages = currentTourGallery.images;
+    
+    // Load first batch of images
+    loadMoreTourImages();
+    
+    // Show modal
+    detail.style.display = "block";
+    document.body.style.overflow = "hidden";
 }
 
-export function closeHouseDetail() {
-  const detail = document.getElementById("house-detail");
-  if (detail) detail.style.display = "none";
-  document.body.style.overflow = "auto";
+// === CLOSE TOUR DETAIL MODAL ===
+export function closeTourDetail() {
+    const detail = document.getElementById("tour-detail");
+    if (detail) {
+        detail.style.display = "none";
+    }
+    document.body.style.overflow = "auto";
+    console.log('✅ Tour detail modal closed');
 }
 
-// 4. "Daha Fazla Yükle" Mantığı (Galeri İçin)
-export function loadMorePropertyImages() {
-  const container = document.getElementById('detail-gallery-container');
-  const loader = document.getElementById('gallery-loader');
-  
-  if (!container) return;
+// === LOAD MORE TOUR IMAGES (Lazy Loading) ===
+export function loadMoreTourImages() {
+    const container = document.getElementById('detail-gallery-container');
+    const loader = document.getElementById('gallery-loader');
+    
+    if (!container) {
+        console.warn('⚠️ Gallery container not found');
+        return;
+    }
 
-  if (currentGallery.images.length === 0) {
-    container.innerHTML = "<p>Görsel bulunamadı.</p>";
-    return;
-  }
+    if (currentTourGallery.images.length === 0) {
+        container.innerHTML = "<p style='text-align:center; color:#999;'>Bu tur için görsel bulunmuyor.</p>";
+        return;
+    }
 
-  const nextImages = currentGallery.images.slice(
-    currentGallery.index, 
-    currentGallery.index + IMAGES_PER_LOAD
-  );
+    // Get next batch of images
+    const endIndex = Math.min(
+        currentTourGallery.index + IMAGES_PER_LOAD, 
+        currentTourGallery.images.length
+    );
+    
+    const imagesToLoad = currentTourGallery.images.slice(
+        currentTourGallery.index, 
+        endIndex
+    );
 
-  const html = nextImages.map((img, i) => {
-    const absoluteIndex = currentGallery.index + i;
-    return `<img loading="lazy" src="${img}" 
-      onclick="window.openGlobalGallery(${absoluteIndex})" 
-      onerror="this.src='${PATHS.FALLBACK_IMAGE}'; this.onerror=null;" 
-      style="cursor:pointer;">`;
-  }).join("");
+    // Generate HTML for images
+    const html = imagesToLoad.map((img, i) => {
+        const absoluteIndex = currentTourGallery.index + i;
+        return `
+            <img loading="lazy" 
+                 src="${img}" 
+                 alt="Tur Görseli ${absoluteIndex + 1}"
+                 onclick="window.openGlobalGallery(${absoluteIndex})" 
+                 onerror="this.src='${PATHS.FALLBACK_IMAGE}'; this.onerror=null;" 
+                 style="cursor:pointer;">
+        `;
+    }).join('');
 
-  container.insertAdjacentHTML('beforeend', html);
-  currentGallery.index += IMAGES_PER_LOAD;
+    container.insertAdjacentHTML('beforeend', html);
+    currentTourGallery.index = endIndex;
 
-  if (currentGallery.index < currentGallery.images.length) {
-      loader.innerHTML = `<button class="btn" onclick="window.loadMorePropertyImages()">Daha Fazla Göster</button>`;
-  } else {
-      loader.innerHTML = '';
-  }
+    // Show/hide "Load More" button
+    if (loader) {
+        if (currentTourGallery.index < currentTourGallery.images.length) {
+            loader.innerHTML = `
+                <button class="btn" onclick="window.loadMoreTourImages()">
+                    Daha Fazla Göster (${currentTourGallery.images.length - currentTourGallery.index} kaldı)
+                </button>
+            `;
+        } else {
+            loader.innerHTML = '';
+        }
+    }
+
+    console.log(`✅ Loaded ${imagesToLoad.length} images (${currentTourGallery.index}/${currentTourGallery.images.length})`);
 }
 
+// === GET CURRENT GALLERY IMAGES (for lightbox) ===
 export function getCurrentGalleryImages() {
-    return currentGallery.images;
+    return currentTourGallery.images;
 }

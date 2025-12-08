@@ -6,26 +6,28 @@
     <title data-key="title">WalkAbouTravel — Tourism & Travel</title>
     <link rel="icon" type="image/png" href="assets/images/walkabou_travel_logo.webp">
 
+    <!-- Preloads -->
     <link rel="preload" as="image" href="assets/images/walkabou_travel_logo.webp">
     <link rel="preload" as="fetch" href="data/languages/en.json" crossorigin>
     <link rel="preload" as="fetch" href="data/languages/ar.json" crossorigin>
     <link rel="preload" as="fetch" href="data/languages/zh.json" crossorigin>
 
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
+    <!-- Main CSS -->
     <link rel="stylesheet" href="styles/main.css">
 
     <style>
-        /* Geçici Text Animasyonu Stili - Diğerleri styles/main.css içinde */
         #changing-text {
             font-size: 1.25rem; 
             margin: 10px 0 30px 0;
             transition: opacity 0.5s ease-in-out;
         }
-        /* Kart linkleri için stil düzeltmesi */
         a.category-card {
             text-decoration: none;
             color: inherit;
@@ -36,12 +38,13 @@
 </head>
 <body>
 
+<!-- HEADER -->
 <header id="main-header">
   <div class="header-top-row">
     <div class="top-bar-left">
       <a href="tel:+902125551923" class="btn btn-top-info"><i class="fas fa-phone"></i> +90 (212) 555 1923</a>
       <a href="mailto:info@walkaboutravel.com" class="btn btn-top-info"><i class="fas fa-envelope"></i> info@walkaboutravel.com</a>
-      </div>
+    </div>
     <div class="top-bar-right">
       <a href="https://www.google.com/maps/dir/?api=1&destination=Mimar+Sinan+Cd.+No:+42/A,+Golden+Palace+Tower+Kat:+12,+İstanbul/Türkiye" target="_blank" rel="noopener noreferrer" class="btn btn-top-info"><i class="fas fa-map-marker-alt"></i> Yol Tarifi Al</a>
     </div>
@@ -76,7 +79,7 @@
       </nav>
     
       <div class="language-selector desktop-only" style="margin-left: 20px;">
-          <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')">TR</button>
+          <button class="lang-btn active" data-lang="tr" onclick="setLanguage('tr')">TR</button>
           <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
           <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">ZH</button>
           <button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">AR</button> 
@@ -85,7 +88,7 @@
   </div>
 </header>
 
-<!-- HERO BÖLÜMÜ -->
+<!-- HERO SECTION -->
 <section class="hero-video page-section active" id="hero">
   <video autoplay muted loop playsinline class="hero-video-bg">
     <source src="assets/videos/hero_background.mp4" type="video/mp4">
@@ -98,20 +101,17 @@
     <h1 data-key="hero_title">WalkAbouTravel</h1>
     <h2 id="changing-text" data-key="hero_subtitle"></h2>
     
-    <!-- GÜNCELLENDİ: Butonlar Yeni Sisteme Bağlandı -->
+    <!-- Updated: Proper category links -->
     <div class="hero-links-container action-buttons" style="margin-bottom: 50px;">
-      <!-- Yurt İçi Butonu -->
-      <a href="#page-tours" data-category="domestic" data-key="drop_hotel" class="btn btn-hero-link">Turizm De Biz</a>
-      <!-- Blog Butonu -->
+      <a href="#page-tours" data-category="domestic" class="btn btn-hero-link">Yurt İçi Turlar</a>
       <a href="#homepage-blog" class="btn btn-hero-link">Blog</a>
-      <!-- Yurt Dışı Butonu -->
-      <a href="#page-tours" data-category="international" data-key="drop_rental" class="btn btn-hero-link">Turizm</a>
+      <a href="#page-tours" data-category="international" class="btn btn-hero-link">Yurt Dışı Turlar</a>
     </div>
 
   </div> 
 </section>
 
-<!-- KATEGORİ SEÇİMİ -->
+<!-- CATEGORY SELECTION -->
 <section id="quick-access-links">
     
     <div class="section-title-wrapper">
@@ -121,10 +121,10 @@
 
     <div class="quick-access-grid">
         
-        <!-- GÜNCELLENDİ: Div -> A etiketi ve yeni linkler -->
+        <!-- Domestic Tours Card -->
         <a href="#page-tours" data-category="domestic" class="category-card">
             <div class="card-image-wrapper">
-                <img src="assets/images/kapadokya-balon-1.webp" 
+                <img src="assets/images/kapadokya-balon-turu-1.webp" 
                      onerror="this.src='assets/fallback.webp'; this.onerror=null;" 
                      alt="Kültür Turları">
             </div>
@@ -135,21 +135,21 @@
             </div>
         </a>
 
-        <!-- Blog Linki -->
+        <!-- Blog Card -->
         <a href="#homepage-blog" class="category-card">
             <div class="card-image-wrapper">
-                <img src="assets/images/blog-1-before.webp" 
+                <img src="assets/images/mardin-tarihi-konak-dokusu-1.webp" 
                      onerror="this.src='assets/fallback.webp'; this.onerror=null;" 
                      alt="Blog">
             </div>
             <div class="category-card-content">
-                <h3>Blog</h3>
-                <p>Tarihi yapılar, yalılar ve koruma projeleri.</p>
+                <h3>Seyahat Günlüğü</h3>
+                <p>Deneyimler, ipuçları ve seyahat hikayeleri.</p>
                 <span class="category-btn">İncele →</span>
             </div>
         </a>
 
-        <!-- Yurt Dışı Linki -->
+        <!-- International Tours Card -->
         <a href="#page-tours" data-category="international" class="category-card">
             <div class="card-image-wrapper">
                 <img src="assets/images/spain-1.webp" 
@@ -166,14 +166,12 @@
     </div>
 </section>
 
-<!-- Blog Bölümü -->
+<!-- BLOG SECTION -->
 <section id="homepage-blog" class="page-section active homepage-blog-section">
     <div class="new-layout-container">
         
         <div class="section-title-wrapper" style="margin-bottom: 50px;">
-            <h2 class="blog-section-title">
-                Seyahat Günlüğü
-            </h2>
+            <h2 class="blog-section-title">Seyahat Günlüğü</h2>
             <p class="blog-section-desc">
                 Dünyanın en büyüleyici rotaları, vizesiz seyahat ipuçları ve konaklama rehberleri.
             </p>
@@ -188,24 +186,23 @@
                 <span class="blog-category">EDİTÖRÜN SEÇİMİ</span>
                 <h3>Mardin'in Büyülü Atmosferi: Taş Konaklar</h3>
                 <p>Mezopotamya'nın kalbinde, tarihin ve kültürün iç içe geçtiği Mardin sokaklarında, taş işçiliğinin en güzel örneklerini keşfedin.</p>
-                <a href="#" class="btn">Devamını Oku</a>
+                <a href="#page-blog" class="btn">Devamını Oku</a>
             </div>
         </div>
 
         <div id="blog-grid-display" class="blog-grid">
-            <!-- JS ile doldurulacak -->
+            <p style="text-align:center; width:100%; color:#999;">📦 Blog yazıları yükleniyor...</p>
         </div>
 
     </div>
 </section>
 
-<!-- NOT: Eski 'page-otel' ve 'page-satilik_kiralik' bölümleri SİLİNDİ. 
-     Artık bu sayfalar pages/tours.html şablonu üzerinden dinamik oluşturuluyor. -->
-
+<!-- DYNAMIC PAGE CONTAINER -->
 <main id="page-container">
-    <!-- Dinamik sayfalar (pages/tours.html, pages/about.html vb.) buraya yüklenecek -->
+    <!-- Pages loaded here dynamically via JavaScript -->
 </main>
 
+<!-- FOOTER -->
 <footer class="site-footer">
     <div class="footer-grid">
 
@@ -222,10 +219,10 @@
         <div class="footer-column">
             <h3 data-key="footer_col_2_title">Hizmetlerimiz</h3>
             <ul class="footer-links">
-                <li><a href="#page-services" data-page="page-services" data-key="service_h3_1">Mimari Tasarım</a></li>
-                <li><a href="#page-services" data-page="page-services" data-key="service_h3_2">İç Mekan Tasarımı</a></li>
-                <li><a href="#page-services" data-page="page-services" data-key="service_h3_3">Restorasyon ve Koruma</a></li>
-                <li><a href="#page-services" data-page="page-services" data-key="service_h3_4">Proje Yönetimi</a></li>
+                <li><a href="#page-services" data-page="page-services">Kültür Turları</a></li>
+                <li><a href="#page-services" data-page="page-services">Vize Danışmanlığı</a></li>
+                <li><a href="#page-services" data-page="page-services">Uçak Bileti</a></li>
+                <li><a href="#page-services" data-page="page-services">Otel Rezervasyonu</a></li>
             </ul>
         </div>
 
@@ -248,10 +245,9 @@
         <div class="footer-column">
             <h3 data-key="footer_col_4_title">Projeler</h3>
             <ul class="footer-links">
-                <!-- GÜNCELLENDİ: Footer Linkleri -->
-                <li><a href="#page-tours" data-category="domestic" data-key="drop_hotel">Turizm De Biz</a></li>
-                <li><a href="#homepage-blog">Blog</a></li>
-                <li><a href="#page-tours" data-category="international" data-key="drop_rental">Bilet & Transfer</a></li>
+                <li><a href="#page-tours" data-category="domestic">Yurt İçi Turlar</a></li>
+                <li><a href="#page-blog">Blog</a></li>
+                <li><a href="#page-tours" data-category="international">Yurt Dışı Turlar</a></li>
             </ul>
         </div>
 
@@ -280,7 +276,7 @@
     </div>
 </footer>
 
-<!-- Lightbox Modal -->
+<!-- LIGHTBOX MODAL -->
 <div id="lightbox-modal" class="lightbox" style="display: none;">
   <span id="close-lightbox" class="close">&times;</span>
   <div class="lightbox-content">
@@ -291,16 +287,10 @@
   <div id="lightbox-counter"></div>
 </div>
 
-<!-- House Detail Modal -->
-<div id="house-detail" class="house-detail">
-  <button onclick="closeHouseDetail()">← Geri</button>
-  <div id="house-detail-content"></div>
-</div>
-
-<!-- Blog Detail Modal -->
+<!-- BLOG MODAL -->
 <div id="blog-modal" class="blog-modal-overlay">
     <div class="blog-modal-content">
-        <button class="close-modal-btn" onclick="closeModal()">×</button>
+        <button class="close-modal-btn" onclick="window.closeBlogModal()">×</button>
         <img id="modal-img" src="" alt="Detay Görseli" class="modal-hero-image">
         <div class="blog-modal-body">
             <h2 id="modal-title" class="modal-title"></h2>
@@ -310,10 +300,11 @@
     </div>
 </div>
 
+<!-- ✅ CRITICAL: Load as ES6 Module -->
 <script type="module" src="scripts/app.js"></script>
 
+<!-- Animated text script (non-module, stays inline) -->
 <script>
-    // Geçici metin animasyonu (Veriler artık HTML içinde kalabilir çünkü sadece basit bir animasyon)
     const data = [
         {
             title: "Kurumsal Seyahat",
@@ -335,7 +326,7 @@
 
     let index = 0; 
     const textElement = document.getElementById('changing-text'); 
-    const intervalTime = 5000; 
+    const intervalTime = 5000;
 
     function changeTextWithFade() {
         if(textElement) {

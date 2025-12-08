@@ -1,26 +1,142 @@
-#page-otel {
+/* === TOURS PAGE STYLES === */
+/* Converted from construction/real estate terminology */
+
+#page-tours {
     background-color: var(--bg) !important;
     padding-bottom: 100px !important;
 }
-.page-content-padding { padding-top: 140px; }
-.page-content-padding-large { padding-top: 160px; }
 
-.house-info {
-  max-width: 900px;
-  margin: 40px auto;
-  background: var(--section-bg);
-  padding: 30px;
-  border-radius: 10px;
-  border: 1px solid var(--border-dark);
+.page-content-padding { 
+    padding-top: 140px; 
 }
-.house-info p strong { color: var(--blue-dark); }
 
-/* Restorasyon Karşılaştırma */
+.page-content-padding-large { 
+    padding-top: 160px; 
+}
+
+/* Tour Cards - Converted from house-card */
+.tour-card {
+    width: 350px;
+    height: auto;
+    background: var(--section-bg);
+    border: 1px solid var(--blue-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.tour-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.tour-card h3 {
+    background: transparent;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: left;
+    padding: 15px;
+    margin: 0;
+    display: block;
+}
+
+.tour-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--vibrant-shadow-intense);
+    border-color: var(--blue-light);
+}
+
+/* Tour Gallery - Converted from house-gallery */
+.tour-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Tour Detail Modal - Converted from house-detail */
+.tour-detail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(244, 247, 252, 0.98);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: none;
+    overflow-y: auto;
+    padding: 30px;
+    animation: fadeIn 0.3s ease;
+    box-sizing: border-box;
+}
+
+.tour-detail button {
+    font-family: 'Inter', sans-serif;
+    padding: 10px 20px;
+    background: var(--blue-dark);
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s var(--easing);
+    border: 1px solid var(--blue-light);
+    font-size: 16px;
+}
+
+.tour-detail button:hover {
+    background: var(--blue-light);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+#tour-detail-content h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/* Tour Info Panel - Converted from house-info */
+.tour-info {
+    max-width: 900px;
+    margin: 40px auto;
+    background: var(--section-bg);
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--border-dark);
+    text-align: left;
+}
+
+.tour-info p {
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 15px;
+    line-height: 1.7;
+    font-family: 'Inter', sans-serif;
+}
+
+.tour-info p strong {
+    color: var(--blue-dark);
+    min-width: 120px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+/* Restoration Comparison (if needed for before/after tour images) */
 .img-comparison-container {
     display: flex;
     justify-content: space-between;
     gap: 10px;
 }
+
 .img-wrapper {
     position: relative;
     width: 50%;
@@ -28,4 +144,47 @@
     border-radius: 8px;
     overflow: hidden;
 }
-.img-wrapper img { width: 100%; height: 220px; object-fit: cover; }
+
+.img-wrapper img { 
+    width: 100%; 
+    height: 220px; 
+    object-fit: cover; 
+}
+
+.img-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--blue-dark);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    z-index: 5;
+    box-shadow: 0 2px 5px rgba(76, 153, 255, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .tour-card {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .tour-gallery {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tour-card img {
+        height: 200px !important;
+    }
+    
+    .tour-info {
+        padding: 20px;
+    }
+}
