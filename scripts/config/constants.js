@@ -1,33 +1,33 @@
-// === CONFIGURATION CONSTANTS - Tourism Website ===
-// All paths updated to tourism terminology
+// === CONSTANTS & CONFIGURATION ===
 
 export const PATHS = {
-    // Data files
+    // Data files - adjust based on your actual folder structure
     TOURS_DATA: 'data/tours.json',
     BLOG_DATA: 'data/blog-posts.json',
+    
+    // Language files
     LANGUAGES: 'data/languages/',
     
-    // Page files (NEW - proper tourism names)
+    // Pages
     PAGES: 'pages/',
     
-    // Assets
-    IMAGES: 'assets/images/',
-    FALLBACK_IMAGE: 'assets/fallback.webp',
-    
-    // API endpoints (if needed)
-    API_BASE: '/api/'
+    // Assets - using your actual Claud/assets path
+    IMAGES: 'Claud/assets/images/',
+    FALLBACK_IMAGE: 'Claud/assets/fallback.webp'
 };
 
-export const IMAGES_PER_LOAD = 6;
+export const IMAGES_PER_LOAD = 6; // Lazy loading batch size
+
 export const DEFAULT_LANGUAGE = 'tr';
 
 export const SUPPORTED_LANGUAGES = ['tr', 'en', 'zh', 'ar'];
 
-export const TOUR_CATEGORIES = {
-    ALL: 'all',
-    DOMESTIC: 'domestic',      // Yurt İçi (TUR-TR-*)
-    INTERNATIONAL: 'international'  // Yurt Dışı (TUR-D-*)
+export const API_ENDPOINTS = {
+    // Add any API endpoints here if needed
 };
 
-export const ANIMATION_DURATION = 300; // ms
-export const DEBOUNCE_DELAY = 150; // ms
+export const CONFIG = {
+    enableDebug: true, // Set to false in production
+    animationDuration: 300,
+    mobileBreakpoint: 768
+};
