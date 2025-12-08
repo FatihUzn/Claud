@@ -1,23 +1,19 @@
 // === CONSTANTS & CONFIGURATION ===
-// For GitHub Pages: fatihuzn.github.io/Claud/
-
-// Base path for GitHub Pages subdirectory
-const BASE_PATH = '/Claud/';
 
 export const PATHS = {
-    // Data files
-    TOURS_DATA: BASE_PATH + 'data/tours.json',
-    BLOG_DATA: BASE_PATH + 'data/blog-posts.json',
+    // Data files - adjust based on your actual folder structure
+    TOURS_DATA: 'data/tours.json',
+    BLOG_DATA: 'data/blog-posts.json',
     
     // Language files
-    LANGUAGES: BASE_PATH + 'data/languages/',
+    LANGUAGES: 'data/languages/',
     
     // Pages
-    PAGES: BASE_PATH + 'pages/',
+    PAGES: 'pages/',
     
-    // Assets
-    IMAGES: BASE_PATH + 'assets/images/',
-    FALLBACK_IMAGE: BASE_PATH + 'assets/fallback.webp'
+    // Assets - using your actual Claud/assets path
+    IMAGES: 'Claud/assets/images/',
+    FALLBACK_IMAGE: 'Claud/assets/fallback.webp'
 };
 
 export const IMAGES_PER_LOAD = 6; // Lazy loading batch size
@@ -35,8 +31,3 @@ export const CONFIG = {
     animationDuration: 300,
     mobileBreakpoint: 768
 };
-
-// Helper function to get full path
-export function getFullPath(relativePath) {
-    return BASE_PATH + relativePath;
-}
